@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import lombok.Builder;
 import lombok.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Value
 @Builder(toBuilder = true)
@@ -17,6 +18,7 @@ public class CurrencyHistoryEntryCreationRequest {
   BigDecimal price;
 
   @NotNull
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   LocalDate timestamp;
 
 }

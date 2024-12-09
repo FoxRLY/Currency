@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1733499582618-1
+      id: 1
       author: foxrly (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -26,7 +26,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: currency
   - changeSet:
-      id: 1733499582618-2
+      id: 2
       author: foxrly (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -57,7 +57,45 @@ databaseChangeLog:
                   type: DATE
             tableName: currency_history
   - changeSet:
-      id: 1733499582618-4
+      id: 3
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: currency_id, timestamp
+            constraintName: UniqueCurrencyIdAndTimestamp
+            tableName: currency_history
+  - changeSet:
+      id: 4
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: name, short_name
+            constraintName: UniqueNameAndShortName
+            tableName: currency
+  - changeSet:
+      id: 5
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: short_name
+            constraintName: UniqueShortName
+            tableName: currency
+  - changeSet:
+      id: 6
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: currency_id
+            indexName: idx_07930072f6e6ac72e91a24b65
+            tableName: currency_history
+  - changeSet:
+      id: 7
       author: foxrly (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -70,59 +108,16 @@ databaseChangeLog:
             indexName: idx_1198040b90d889ef9f4d1fb9a
             tableName: currency_history
   - changeSet:
-      id: 1733499582618-5
+      id: 8
       author: foxrly (generated)
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
-        - addForeignKeyConstraint:
-            baseColumnNames: currency_id
-            baseTableName: currency_history
-            constraintName: FK_CURRENCY_HISTORY_ON_CURRENCY
-            referencedColumnNames: id
-            referencedTableName: currency
-        - createIndex:
-            columns:
-              - column:
-                  name: currency_id
-            indexName: idx_07930072f6e6ac72e91a24b65
-            tableName: currency_history
+        - sqlFile:
+            relativeToChangelogFile: true
+            path: ../init/currency.sql
   - changeSet:
-      id:  1733499582618-6
+      id: 9
       author: foxrly (generated)
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
-        - loadData:
-            columns:
-              - column:
-                  header: id
-                  name: id
-              - column:
-                  header: name
-                  name: name
-              - column:
-                  header: short_name
-                  name: short_name
-            tableName: currency
-            file: "db/init/currency.csv"
-  - changeSet:
-      id:  1733499582618-7
-      author: foxrly (generated)
-      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
-      changes:
-        - loadData:
-            columns:
-              - column:
-                  header: id
-                  name: id
-              - column:
-                  header: currency_id
-                  name: currency_id
-              - column:
-                  header: price
-                  name: price
-              - column:
-                  header: timestamp
-                  name: timestamp
-            tableName: currency_history
-            file: "db/init/history.csv"
-
+        - sqlFile:
+            relativeToChangelogFile: true
+            path: ../init/history.sql

@@ -35,12 +35,14 @@ public class CurrencyService {
     return currencyHistoryRepository.getByCurrencyId(currencyId, pageable);
   }
 
-  public void addNewCurrency(CurrencyCreationRequest request) {
+  public Long addNewCurrency(CurrencyCreationRequest request) {
     Currency newCurrency = currencyMapper.toCurrencyModel(request);
     currencyRepository.save(newCurrency);
+    return newCurrency.getId();
   }
 
   public void addNewCurrencyHistoryEntry(CurrencyHistoryEntryCreationRequest request) {
+    log.info("{}", request);
     CurrencyHistory newEntry = currencyMapper.toCurrencyHistoryModel(request);
     currencyHistoryRepository.save(newEntry);
   }

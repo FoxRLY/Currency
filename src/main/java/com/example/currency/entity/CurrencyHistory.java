@@ -15,7 +15,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -30,7 +29,10 @@ import org.hibernate.annotations.CreationTimestamp;
       @Index(columnList = "currencyId, timestamp")
     },
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "currency_id", "timestamp" } )
+        @UniqueConstraint(
+            name = "UniqueCurrencyIdAndTimestamp",
+            columnNames = { "currency_id", "timestamp" }
+        )
     }
 )
 public class CurrencyHistory {
@@ -46,7 +48,6 @@ public class CurrencyHistory {
   @Column(name = "price", nullable = false, scale = 3, precision = 20)
   private BigDecimal price;
 
-  @CreationTimestamp
   @Column(name = "timestamp", nullable = false)
   private LocalDate timestamp;
 

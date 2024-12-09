@@ -3,6 +3,7 @@ package com.example.currency.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -20,14 +21,14 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Table(name = "currency",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"name", "shortName"}),
-        @UniqueConstraint(columnNames = {"shortName"})
+        @UniqueConstraint(name = "UniqueShortName", columnNames = {"shortName"}),
+        @UniqueConstraint(name = "UniqueNameAndShortName", columnNames = {"name", "shortName"})
     }
 )
 public class Currency {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
   private Long id;
 
