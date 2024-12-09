@@ -1,0 +1,128 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1733499582618-1
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_currency
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: VARCHAR(512)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: short_name
+                  type: VARCHAR(255)
+            tableName: currency
+  - changeSet:
+      id: 1733499582618-2
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_currency_history
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: currency_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: price
+                  type: DECIMAL(20, 3)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: timestamp
+                  type: DATE
+            tableName: currency_history
+  - changeSet:
+      id: 1733499582618-4
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: currency_id
+              - column:
+                  name: timestamp
+            indexName: idx_1198040b90d889ef9f4d1fb9a
+            tableName: currency_history
+  - changeSet:
+      id: 1733499582618-5
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: currency_id
+            baseTableName: currency_history
+            constraintName: FK_CURRENCY_HISTORY_ON_CURRENCY
+            referencedColumnNames: id
+            referencedTableName: currency
+        - createIndex:
+            columns:
+              - column:
+                  name: currency_id
+            indexName: idx_07930072f6e6ac72e91a24b65
+            tableName: currency_history
+  - changeSet:
+      id:  1733499582618-6
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+              - column:
+                  header: name
+                  name: name
+              - column:
+                  header: short_name
+                  name: short_name
+            tableName: currency
+            file: "db/init/currency.csv"
+  - changeSet:
+      id:  1733499582618-7
+      author: foxrly (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - loadData:
+            columns:
+              - column:
+                  header: id
+                  name: id
+              - column:
+                  header: currency_id
+                  name: currency_id
+              - column:
+                  header: price
+                  name: price
+              - column:
+                  header: timestamp
+                  name: timestamp
+            tableName: currency_history
+            file: "db/init/history.csv"
+
