@@ -22,10 +22,6 @@ public class CurrencyService {
   private final CurrencyHistoryRepository currencyHistoryRepository;
   private final CurrencyMapper currencyMapper;
 
-  public Currency getCurrencyByShortName(String shortName) {
-    return currencyRepository.findByShortName(shortName);
-  }
-
   public Page<Currency> getAllCurrencies(Pageable pageable) {
     return currencyRepository.findAll(pageable);
   }
@@ -41,9 +37,9 @@ public class CurrencyService {
     return newCurrency.getId();
   }
 
-  public void addNewCurrencyHistoryEntry(CurrencyHistoryEntryCreationRequest request) {
-    log.info("{}", request);
+  public Long addNewCurrencyHistoryEntry(CurrencyHistoryEntryCreationRequest request) {
     CurrencyHistory newEntry = currencyMapper.toCurrencyHistoryModel(request);
     currencyHistoryRepository.save(newEntry);
+    return newEntry.getId();
   }
 }

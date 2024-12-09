@@ -56,8 +56,8 @@ public class CurrencyController {
   }
 
   @PostMapping("/currency/history")
-  public void addNewCurrencyHistoryEntry(@Valid CurrencyHistoryEntryCreationRequest request) {
-    currencyService.addNewCurrencyHistoryEntry(request);
+  public Long addNewCurrencyHistoryEntry(@Valid CurrencyHistoryEntryCreationRequest request) {
+    return currencyService.addNewCurrencyHistoryEntry(request);
   }
 
 }
