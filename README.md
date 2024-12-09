@@ -8,3 +8,5 @@
 ```./gradlew bootRun```
 # Как проверить фронтенд
 Зайти на localhost:8080
+# Описание API (Swagger)
+http://localhost:8080/swagger-ui/index.html
